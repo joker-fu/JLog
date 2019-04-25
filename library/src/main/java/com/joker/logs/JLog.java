@@ -18,10 +18,13 @@ import static android.util.Log.*;
  */
 public final class JLog {
 
-    private static final String TAG = "JLog";
+    private static final String J_TAG = "JLog";
     private static final String LINE_SEPARATOR = "\n";
     private static final int MAX_LENGTH = 4000;
     private static final String REGEX = "(.{" + MAX_LENGTH + "})";
+
+    private static String tag = "JLog";
+    private static boolean debug = true;
     private static String title;
 
     public static final int INDEX_4 = 4;
@@ -32,11 +35,25 @@ public final class JLog {
         throw new UnsupportedOperationException("cannot be instantiated");
     }
 
-    public static void init(int index) {
+    public static void init(boolean isDebug) {
+        init(INDEX_4, isDebug, J_TAG);
+    }
+
+    public static void init(boolean isDebug, String tagName) {
+        init(INDEX_4, isDebug, tagName);
+    }
+
+    public static void init(int index, boolean isDebug) {
+        init(index, isDebug, J_TAG);
+    }
+
+    public static void init(int index, boolean isDebug, String tagName) {
         if (index != 4 && index != 5) {
             throw new IllegalArgumentException("index must be INDEX_4 or INDEX_5");
         }
         traceIndex = index;
+        debug = isDebug;
+        tag = tagName;
     }
 
     public static StackTraceElement getStackTraceElement() {
@@ -54,70 +71,70 @@ public final class JLog {
     }
 
     public static void v(String msg) {
-        if (BuildConfig.DEBUG) {
+        if (debug) {
             getMethodNames(getStackTraceElement());
-            print(TAG, msg, VERBOSE);
+            print(tag, msg, VERBOSE);
         }
     }
 
     public static void v(String tag, String msg) {
-        if (BuildConfig.DEBUG) {
+        if (debug) {
             getMethodNames(getStackTraceElement());
             print(tag, msg, VERBOSE);
         }
     }
 
     public static void d(String msg) {
-        if (BuildConfig.DEBUG) {
+        if (debug) {
             getMethodNames(getStackTraceElement());
-            print(TAG, msg, DEBUG);
+            print(tag, msg, DEBUG);
         }
     }
 
     public static void d(String tag, String msg) {
-        if (BuildConfig.DEBUG) {
+        if (debug) {
             getMethodNames(getStackTraceElement());
             print(tag, msg, DEBUG);
         }
     }
 
     public static void i(String msg) {
-        if (BuildConfig.DEBUG) {
+        if (debug) {
             getMethodNames(getStackTraceElement());
-            print(TAG, msg, INFO);
+            print(tag, msg, INFO);
         }
     }
 
     public static void i(String tag, String msg) {
-        if (BuildConfig.DEBUG) {
+        if (debug) {
             getMethodNames(getStackTraceElement());
             print(tag, msg, INFO);
         }
     }
 
     public static void w(String msg) {
-        if (BuildConfig.DEBUG) {
+        if (debug) {
             getMethodNames(getStackTraceElement());
-            print(TAG, msg, WARN);
+            print(tag, msg, WARN);
         }
     }
 
     public static void w(String tag, String msg) {
-        if (BuildConfig.DEBUG) {
+        if (debug) {
             getMethodNames(getStackTraceElement());
             print(tag, msg, WARN);
         }
     }
 
     public static void e(String msg) {
-        if (BuildConfig.DEBUG) {
+        if (debug) {
             getMethodNames(getStackTraceElement());
-            print(TAG, msg, ERROR);
+            print(tag, msg, ERROR);
         }
     }
 
     public static void e(String tag, String msg) {
-        if (BuildConfig.DEBUG) {
+        if (debug) {
             getMethodNames(getStackTraceElement());
             print(tag, msg, ERROR);
         }
