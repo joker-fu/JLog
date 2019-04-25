@@ -6,7 +6,7 @@
 Android 极简log日志库
 
 ## 效果图
-![预览图]{https://github.com/joker-fu/JLog/tree/master/images/image0.jpg}
+![预览图]{https://github.com/joker-fu/JLog/blob/master/images/image0.jpg}
 
 ## 依赖
 > android studio
