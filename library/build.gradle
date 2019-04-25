@@ -1,9 +1,8 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.novoda.bintray-release'
 
 android {
     compileSdkVersion 28
-
-
 
     defaultConfig {
         minSdkVersion 19
@@ -26,4 +25,13 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+}
+
+publish {
+    userOrg = 'wrap0673' //bintray注册的用户名
+    groupId = 'com.joker.log'  //compile引用时的第1部分groupId
+    artifactId = 'JLog'  //compile引用时的第2部分项目名
+    publishVersion = "$jlog_version"  //compile引用时的第3部分版本号
+    desc = 'Android log library'
+    website = 'https://github.com/joker-fu/JLog'
 }
