@@ -1,6 +1,7 @@
 package com.joker.logs;
 
 
+import android.os.Debug;
 import android.util.Log;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -35,24 +36,21 @@ public final class JLog {
         throw new UnsupportedOperationException("cannot be instantiated");
     }
 
-    public static void init(boolean isDebug) {
-        init(INDEX_4, isDebug, J_TAG);
+
+    public static void init(String tagName) {
+        init(INDEX_4, tagName);
     }
 
-    public static void init(boolean isDebug, String tagName) {
-        init(INDEX_4, isDebug, tagName);
+    public static void init(int index) {
+        init(index, J_TAG);
     }
 
-    public static void init(int index, boolean isDebug) {
-        init(index, isDebug, J_TAG);
-    }
-
-    public static void init(int index, boolean isDebug, String tagName) {
+    public static void init(int index, String tagName) {
         if (index != 4 && index != 5) {
             throw new IllegalArgumentException("index must be INDEX_4 or INDEX_5");
         }
         traceIndex = index;
-        debug = isDebug;
+        debug = Debug.isDebuggerConnected();
         tag = tagName;
     }
 
