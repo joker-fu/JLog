@@ -4,11 +4,9 @@ import com.joker.logs.JLog
 
 
 object LogUtils {
-    init {
-        JLog.init(JLog.INDEX_5, "JLOG")
-    }
 
     fun e(msg: String) {
-        JLog.e(msg)
+        //封装工具类使用
+        JLog.e(msg, JLog.TRACE_INDEX_5)
     }
 }

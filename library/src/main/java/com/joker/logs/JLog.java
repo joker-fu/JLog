@@ -1,7 +1,8 @@
 package com.joker.logs;
 
 
-import android.os.Debug;
+import android.content.Context;
+import android.content.pm.ApplicationInfo;
 import android.util.Log;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -24,39 +25,31 @@ public final class JLog {
     private static final int MAX_LENGTH = 4000;
     private static final String REGEX = "(.{" + MAX_LENGTH + "})";
 
-    private static String tag = "JLog";
+    private static String tag = J_TAG;
     private static boolean debug = true;
     private static String title;
 
-    public static final int INDEX_4 = 4;
-    public static final int INDEX_5 = 5;
-    private static int traceIndex = INDEX_4;
+    //默认获取堆栈中的index
+    public static final int TRACE_INDEX_4 = 4;
+    //封装一层工具类，使用它获取堆栈中的index
+    public static final int TRACE_INDEX_5 = 5;
 
     private void Log() {
         throw new UnsupportedOperationException("cannot be instantiated");
     }
 
-
-    public static void init(String tagName) {
-        init(INDEX_4, tagName);
+    public static void init(Context context) {
+        init(context, J_TAG);
     }
 
-    public static void init(int index) {
-        init(index, J_TAG);
-    }
-
-    public static void init(int index, String tagName) {
-        if (index != 4 && index != 5) {
-            throw new IllegalArgumentException("index must be INDEX_4 or INDEX_5");
-        }
-        traceIndex = index;
-        debug = Debug.isDebuggerConnected();
+    public static void init(Context context, String tagName) {
+        debug = context.getApplicationInfo() != null && (context.getApplicationInfo().flags & ApplicationInfo.FLAG_DEBUGGABLE) != 0;
         tag = tagName;
     }
 
-    public static StackTraceElement getStackTraceElement() {
+    private static StackTraceElement getStackTraceElement(int traceIndex) {
         final StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
-        return stackTrace[JLog.traceIndex];
+        return stackTrace[traceIndex];
     }
 
     private static void getMethodNames(StackTraceElement element) {
@@ -70,70 +63,140 @@ public final class JLog {
 
     public static void v(String msg) {
         if (debug) {
-            getMethodNames(getStackTraceElement());
+            getMethodNames(getStackTraceElement(TRACE_INDEX_4));
+            print(tag, msg, VERBOSE);
+        }
+    }
+
+    public static void v(String msg, int traceIndex) {
+        if (debug) {
+            getMethodNames(getStackTraceElement(traceIndex));
             print(tag, msg, VERBOSE);
         }
     }
 
     public static void v(String tag, String msg) {
         if (debug) {
-            getMethodNames(getStackTraceElement());
+            getMethodNames(getStackTraceElement(TRACE_INDEX_4));
+            print(tag, msg, VERBOSE);
+        }
+    }
+
+    public static void v(String tag, String msg, int traceIndex) {
+        if (debug) {
+            getMethodNames(getStackTraceElement(traceIndex));
             print(tag, msg, VERBOSE);
         }
     }
 
     public static void d(String msg) {
         if (debug) {
-            getMethodNames(getStackTraceElement());
+            getMethodNames(getStackTraceElement(TRACE_INDEX_4));
+            print(tag, msg, DEBUG);
+        }
+    }
+
+    public static void d(String msg, int traceIndex) {
+        if (debug) {
+            getMethodNames(getStackTraceElement(traceIndex));
             print(tag, msg, DEBUG);
         }
     }
 
     public static void d(String tag, String msg) {
         if (debug) {
-            getMethodNames(getStackTraceElement());
+            getMethodNames(getStackTraceElement(TRACE_INDEX_4));
+            print(tag, msg, DEBUG);
+        }
+    }
+
+    public static void d(String tag, String msg, int traceIndex) {
+        if (debug) {
+            getMethodNames(getStackTraceElement(traceIndex));
             print(tag, msg, DEBUG);
         }
     }
 
     public static void i(String msg) {
         if (debug) {
-            getMethodNames(getStackTraceElement());
+            getMethodNames(getStackTraceElement(TRACE_INDEX_4));
+            print(tag, msg, INFO);
+        }
+    }
+
+    public static void i(String msg, int traceIndex) {
+        if (debug) {
+            getMethodNames(getStackTraceElement(traceIndex));
             print(tag, msg, INFO);
         }
     }
 
     public static void i(String tag, String msg) {
         if (debug) {
-            getMethodNames(getStackTraceElement());
+            getMethodNames(getStackTraceElement(TRACE_INDEX_4));
+            print(tag, msg, INFO);
+        }
+    }
+
+    public static void i(String tag, String msg, int traceIndex) {
+        if (debug) {
+            getMethodNames(getStackTraceElement(traceIndex));
             print(tag, msg, INFO);
         }
     }
 
     public static void w(String msg) {
         if (debug) {
-            getMethodNames(getStackTraceElement());
+            getMethodNames(getStackTraceElement(TRACE_INDEX_4));
+            print(tag, msg, WARN);
+        }
+    }
+
+    public static void w(String msg, int traceIndex) {
+        if (debug) {
+            getMethodNames(getStackTraceElement(traceIndex));
             print(tag, msg, WARN);
         }
     }
 
     public static void w(String tag, String msg) {
         if (debug) {
-            getMethodNames(getStackTraceElement());
+            getMethodNames(getStackTraceElement(TRACE_INDEX_4));
+            print(tag, msg, WARN);
+        }
+    }
+
+    public static void w(String tag, String msg, int traceIndex) {
+        if (debug) {
+            getMethodNames(getStackTraceElement(traceIndex));
             print(tag, msg, WARN);
         }
     }
 
     public static void e(String msg) {
         if (debug) {
-            getMethodNames(getStackTraceElement());
+            getMethodNames(getStackTraceElement(TRACE_INDEX_4));
+            print(tag, msg, ERROR);
+        }
+    }
+
+    public static void e(String msg, int traceIndex) {
+        if (debug) {
+            getMethodNames(getStackTraceElement(traceIndex));
             print(tag, msg, ERROR);
         }
     }
 
     public static void e(String tag, String msg) {
         if (debug) {
-            getMethodNames(getStackTraceElement());
+            getMethodNames(getStackTraceElement(TRACE_INDEX_4));
+            print(tag, msg, ERROR);
+        }
+    }
+
+    public static void e(String tag, String msg, int traceIndex) {
+        if (debug) {
+            getMethodNames(getStackTraceElement(traceIndex));
             print(tag, msg, ERROR);
         }
     }
@@ -161,7 +224,6 @@ public final class JLog {
             log(tag, line, type);
         }
         log(tag, "[═══════════════════════════════════════════  end  " + title + " ═══════════════════════════════════════════]", type);
-        log(tag, " ", type);
     }
 
     private static String formatMessage(String msg) {

@@ -12,6 +12,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        //初始化，主要用于判断app是否在debug模式
+        JLog.init(this)
+
         JLog.i("app is running!")
         button.setOnClickListener {
 
@@ -22,6 +25,9 @@ class MainActivity : AppCompatActivity() {
             JLog.w("""{"data":{"curPage":1,"datas":[{"completeDate":null,"completeDateStr":"","content":"突突突","date":1550160000000,"dateStr":"2019-02-15","id":7757,"priority":0,"status":0,"title":"徐局","type":0,"userId":16643}],"offset":0,"over":true,"pageCount":1,"size":20,"total":10},"errorCode":0,"errorMsg":""}""")
 
             LogUtils.e("封装成自己的Util")
+
+            JLog.i("log is end!")
+
         }
     }
 }
