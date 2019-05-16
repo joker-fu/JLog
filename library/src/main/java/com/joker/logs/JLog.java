@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.util.Log;
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import static android.util.Log.*;
@@ -214,7 +213,7 @@ public final class JLog {
             } else {
                 message = formatMessage(msg);
             }
-        } catch (JSONException e) {
+        } catch (Exception e) {
             message = formatMessage(msg);
         }
 
