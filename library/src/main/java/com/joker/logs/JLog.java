@@ -203,18 +203,22 @@ public final class JLog {
     private static void print(String tag, String msg, int type) {
         String message;
 
-        try {
-            if (msg.startsWith("{")) {
-                JSONObject jsonObject = new JSONObject(msg);
-                message = jsonObject.toString(4);
-            } else if (msg.startsWith("[")) {
-                JSONArray jsonArray = new JSONArray(msg);
-                message = jsonArray.toString(4);
-            } else {
+        if (msg == null) {
+            message = "null";
+        } else {
+            try {
+                if (msg.startsWith("{")) {
+                    JSONObject jsonObject = new JSONObject(msg);
+                    message = jsonObject.toString(4);
+                } else if (msg.startsWith("[")) {
+                    JSONArray jsonArray = new JSONArray(msg);
+                    message = jsonArray.toString(4);
+                } else {
+                    message = formatMessage(msg);
+                }
+            } catch (Exception e) {
                 message = formatMessage(msg);
             }
-        } catch (Exception e) {
-            message = formatMessage(msg);
         }
 
         log(tag, "[═══════════════════════════════════════════ start " + title + " ═══════════════════════════════════════════]", type);
